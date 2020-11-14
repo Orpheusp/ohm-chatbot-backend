@@ -58,6 +58,7 @@ venv.bak/
 .idea/usage.statistics.xml
 .idea/tasks.xml
 .idea/shelf/
+.idea/dataSources.xml
 
 # Secrets
 secrets.py
