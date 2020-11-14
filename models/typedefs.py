@@ -14,7 +14,7 @@ CHAT_CARD_SENDER_TYPE = {
     'BOT': 'BOT',
 }
 
-INFORMATION_CARD_RESOURCE_TYPE = {
+CARD_RESOURCE_TYPE = {
     'URL': 'URL',
     'IMAGE': 'IMG',
     'TEXT': 'TXT',
