@@ -3,6 +3,7 @@ from flask import Flask
 from flask_restful import Api
 from secrets import FLASK_APP_SECRET_KEY
 from utils.JsonEncoder import MongoEngineJsonEncoder
+from resources.ChatCards import ChatCards
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_SECRET_KEY
@@ -10,6 +11,9 @@ app.secret_key = FLASK_APP_SECRET_KEY
 initialize_db(app)
 app.json_encoder = MongoEngineJsonEncoder
 api = Api(app)
+
+# Resources for testing purposes
+api.add_resource(ChatCards, '/chatcards', '/chatcards/<string:card_id>')
 
 if __name__ == '__main__':
     app.run()
