@@ -5,3 +5,4 @@ pymongo[srv]~=3.11.0
 dnspython~=2.0.0
 flask-restful~=0.3.8
 requests~=2.25.0
+Flask-Session~=0.3.2
