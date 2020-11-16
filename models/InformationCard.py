@@ -13,7 +13,7 @@ class InformationCardResourceDocument(EmbeddedDocument):
 
 
 class InformationCardDocument(Document):
-    meta = {'collection': 'InformationCards', 'db_alias': 'cards'}
+    meta = {'collection': 'InformationCards'}
     auth_required = BooleanField(required=True, db_field='authRequired')
     department = StringField(db_field='department')
     owner = StringField(db_field='owner')

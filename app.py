@@ -8,7 +8,7 @@ from resources.InformationCards import InformationCards
 
 app = Flask(__name__)
 
-initialize_db()
+initialize_db(app)
 initialize_sessions(app)
 app.json_encoder = MongoEngineJsonEncoder
 api = Api(app)
