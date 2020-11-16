@@ -3,7 +3,7 @@ from models.typedefs import CHAT_CARD_RESOURCE_CODE_REGEX, CHAT_CARD_TYPE, CHAT_
 
 
 class ChatCardDocument(Document):
-    meta = {'collection': 'ChatCards'}
+    meta = {'collection': 'ChatCards', 'db_alias': 'cards'}
     message = StringField(required=True, db_field='message')
     resource_code = StringField(
         required=True,

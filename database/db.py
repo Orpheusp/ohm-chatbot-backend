@@ -1,17 +1,37 @@
-from flask_mongoengine import MongoEngine
-from secrets import DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOSTNAME
+from mongoengine import connect
+from pymongo import MongoClient
+from typing import Optional
+from secrets import DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_CARDS_HOSTNAME, DATABASE_SESSIONS_HOSTNAME
 
-db = MongoEngine()
+_cards_db: Optional[MongoClient] = None
+_sessions_db: Optional[MongoClient] = None
 
 
-def initialize_db(app):
-    app.config['MONGODB_SETTINGS'] = {
-        'db': 'Cards',
-        'host': DATABASE_HOSTNAME,
-        'username': DATABASE_USERNAME,
-        'password': DATABASE_PASSWORD,
-    }
-    db.init_app(app)
+def initialize_dbs():
+    global _cards_db
+    global _sessions_db
 
-def fetch_engine():
-    return db
+    _cards_db = connect(
+        db='Cards',
+        alias='cards',
+        username=DATABASE_USERNAME,
+        password=DATABASE_PASSWORD,
+        host=DATABASE_CARDS_HOSTNAME
+    )
+    _sessions_db = connect(
+        db='Sessions',
+        alias='sessions',
+        username=DATABASE_USERNAME,
+        password=DATABASE_PASSWORD,
+        host=DATABASE_SESSIONS_HOSTNAME
+    )
+
+
+def fetch_cards_db():
+    global _cards_db
+    return _cards_db
+
+
+def fetch_sessions_db():
+    global _sessions_db
+    return _sessions_db

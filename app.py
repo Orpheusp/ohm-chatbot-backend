@@ -1,4 +1,4 @@
-from database.db import initialize_db
+from database.db import initialize_dbs
 from flask import Flask
 from flask_restful import Api
 from secrets import FLASK_APP_SECRET_KEY
@@ -10,7 +10,7 @@ from resources.InformationCards import InformationCards
 app = Flask(__name__)
 app.secret_key = FLASK_APP_SECRET_KEY
 
-initialize_db(app)
+initialize_dbs()
 app.json_encoder = MongoEngineJsonEncoder
 api = Api(app)
 
