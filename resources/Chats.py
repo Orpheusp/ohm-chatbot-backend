@@ -1,6 +1,6 @@
 from flask_restful import Resource, request
-from flask import jsonify
-from secrets import CHATBOT_DEVELOPER_ACCESS_TOKEN
+from flask import jsonify, session
+from secrets import CHATBOT_DEVELOPER_ACCESS_TOKEN_DEV, CHATBOT_DEVELOPER_ACCESS_TOKEN_PROD
 from models.ChatCard import ChatCardDocument
 from models.InformationCard import InformationCardDocument
 from models.TutorialCard import TutorialCardDocument
@@ -12,6 +12,7 @@ from services.TutorialCardService import get_tutorial_card_entry
 
 import requests
 import re
+import os
 
 
 CHATBOT_API_URL = 'https://api.chatbot.com/query'
@@ -24,14 +25,17 @@ OhmCard = NewType(
 
 
 class Chats(Resource):
+    _access_token = CHATBOT_DEVELOPER_ACCESS_TOKEN_PROD \
+        if os.environ.get('FLASK_ENV', 'production') == 'production' \
+        else CHATBOT_DEVELOPER_ACCESS_TOKEN_DEV
 
     def _send_message(self, message: Optional[str]=None):
         headers = {
-            'authorization': f'Bearer {CHATBOT_DEVELOPER_ACCESS_TOKEN}',
+            'authorization': f'Bearer {self._access_token}',
             'content-type': 'application/json',
         }
         payload = {
-            'sessionId': '13456132138',
+            'sessionId': session.sid,
         }
         if message:
             payload['query'] = message
